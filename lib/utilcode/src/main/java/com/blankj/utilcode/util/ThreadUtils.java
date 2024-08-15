@@ -954,6 +954,10 @@ public final class ThreadUtils {
                 TimerTask timerTask = new TimerTask() {
                     @Override
                     public void run() {
+                        if (task.isCanceled()) {
+                            cancel();
+                            return;
+                        }
                         pool.execute(task);
                     }
                 };
@@ -964,6 +968,10 @@ public final class ThreadUtils {
             TimerTask timerTask = new TimerTask() {
                 @Override
                 public void run() {
+                    if (task.isCanceled()) {
+                        cancel();
+                        return;
+                    }
                     pool.execute(task);
                 }
             };
